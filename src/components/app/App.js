@@ -7,7 +7,6 @@ import usersApiOBJ from '../../utils/usersApi';
 import * as auth from '../../utils/auth';
 import Main from '../main/Main';
 import Header from '../header/Header';
-import * as Buttons from '../buttons/Buttons';
 import RightClickMenu from '../rightClickMenu/RightClickMenu';
 import LoginPopup from '../popup/LoginPopup';
 import Confirm from '../confirm/Confirm';
