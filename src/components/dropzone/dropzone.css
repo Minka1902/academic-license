@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+}
+
+.dropzone {
+    flex: 1;
+    width: 95%;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 2px dashed #9c9c9c;
+    border-radius: 2px;
+    background-color: #fafafa;
+    color: #bdbdbd;
+    outline: none;
+    transition: border .24s ease-in-out;
+}
+
+.dropzone__file-name {
+    margin: 0;
+}
