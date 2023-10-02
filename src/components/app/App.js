@@ -170,7 +170,7 @@ function App() {
   React.useEffect(() => { // * close popup when clicked outside of it
     isAutoLogin();
     history.push("/upload-file");
-  }, []);
+  }, []);                 // eslint-disable-line
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

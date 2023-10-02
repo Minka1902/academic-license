@@ -9,13 +9,8 @@ export default function Main({ children, mainClass, noConfirmation }) {
 
     const handleConfirm = () => {
         if (data) {
-            data.map((student) => {
+            data.map((student) => { // eslint-disable-line
                 studentApiObj.createStudent(student)
-                    .then((data) => {
-                        if (data) {
-
-                        }
-                    })
                     .catch((err) => {
                         if (err) {
                             console.error(err);

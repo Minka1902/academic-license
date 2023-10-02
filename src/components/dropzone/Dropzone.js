@@ -2,7 +2,7 @@ import React from 'react';
 import CurrentDataContext from '../../contexts/CurrentDataContext';
 import { useDropzone } from 'react-dropzone';
 
-export default function Dropzone({ }) {
+export default function Dropzone() {
     const { getRootProps, getInputProps, open, acceptedFiles } = useDropzone({
         // Disable click and keydown behavior
         noClick: true,
@@ -45,7 +45,7 @@ export default function Dropzone({ }) {
             return (<p key={file.path}>{file.path} - {file.size} bytes</p>);
         });
         setFiles(asd);
-    }, [acceptedFiles])
+    }, [acceptedFiles])      // eslint-disable-line
 
     return (
         <div className="container">
