@@ -1,0 +1,18 @@
+.confirm__text {
+    color: #000;
+    background-color: transparent;
+    font-size: 20px;
+    text-wrap: wrap;
+    font-family: 'Roboto', Arial, sans-serif;
+    margin: 10px auto;
+}
+
+.confirm__text:nth-child(4) {
+    margin-bottom: 20px;
+}
+
+.app_page-confirm {
+    padding-bottom: 80px;
+    justify-content: start;
+    align-items: center;
+}

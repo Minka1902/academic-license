@@ -5,11 +5,12 @@ import CurrentDataContext from '../../contexts/CurrentDataContext';
 import ProtectedRoute from '../protectedRoute/ProtectedRoute';
 import usersApiOBJ from '../../utils/usersApi';
 import * as auth from '../../utils/auth';
+import Main from '../main/Main';
 import Header from '../header/Header';
+import * as Buttons from '../buttons/Buttons';
 import RightClickMenu from '../rightClickMenu/RightClickMenu';
 import LoginPopup from '../popup/LoginPopup';
-import Dropzone from '../dropzone/Dropzone';
-import Table from '../table/Table';
+import Confirm from '../confirm/Confirm';
 import Footer from '../footer/Footer';
 
 function App() {
@@ -109,8 +110,13 @@ function App() {
   // !!!!!!!!!!!!!     ROUTE handling     !!!!!!!!!!!!!!
   // ???????????????????????????????????????????????????
 
-  const handleHomeClick = () => {
+  const handleBackClick = () => {
     history.push('/upload-file');
+    setData(undefined);
+  };
+
+  const handleSubmitClick = () => {
+    history.push('/confirm-submit');
   };
 
   const buttons = [
@@ -118,12 +124,19 @@ function App() {
       name: 'Back',
       isAllowed: true,
       path: '/upload-file',
-      onClick: handleHomeClick
+      onClick: handleBackClick
+    }, {
+      name: 'Submit keys',
+      isAllowed: true,
+      path: '/confirm-submit',
+      onClick: handleSubmitClick
     },
   ];
 
   const rightClickItems = [
-    { buttonText: 'sign out', buttonClicked: handleLogout, filter: 'header', isAllowed: true },
+    { buttonText: 'sign out', buttonClicked: handleLogout, filter: 'root', isAllowed: true },
+    { buttonText: 'submit', buttonClicked: handleSubmitClick, filter: 'main', isAllowed: true },
+    { buttonText: 'go back', buttonClicked: handleBackClick, filter: 'app_page-confirm', isAllowed: true },
   ];
 
   // ???????????????????????????????????????????????????
@@ -152,12 +165,12 @@ function App() {
     return () => document.removeEventListener('mouseup', closeByClick);
   });
 
-  // ?
-  // !
-  // ?
+  // ???????????????????????????????????????????????????
+  // !!!!!!!!!!!!!     INIT handling     !!!!!!!!!!!!!!!
+  // ???????????????????????????????????????????????????
   React.useEffect(() => { // * close popup when clicked outside of it
     isAutoLogin();
-    history.push("/login");
+    history.push("/upload-file");
   }, []);
 
   return (
@@ -165,7 +178,7 @@ function App() {
       <CurrentDataContext.Provider value={{ data, setData }}>
         <Switch>
           <Route path='/login'>
-            <h1 className='section__title'>Welcome, Please Sing in to use this service</h1>
+            <h1 className='section__title'>Welcome, Please Sign in to use this service</h1>
             <LoginPopup
               handleLogin={handleLoginSubmit}
               isOpen={!loggedIn}
@@ -177,23 +190,34 @@ function App() {
           </Route>
 
           <ProtectedRoute exact path='/upload-file' redirectTo='/login' loggedIn={loggedIn}>
-            <div className='app'>
+            <Main mainClass='app'>
               <Header
                 noScroll={noScroll}
                 scroll={scroll}
                 isLoggedIn={true}
-                buttons={history.location.pathName === '/upload-file' ? [] : []}
+                buttons={history.location.pathName === '/confirm-submit' ? buttons : [buttons[1]]}
                 theme={true}
                 handleLogout={handleLogout}
               />
-              <h1 className='section__title'>Create your class</h1>
-              <Dropzone />
-              {data ? <Table tableHeaders={['', 'Name', 'Email', 'Access key']} /> : <></>}
-            </div>
+            </Main>
           </ProtectedRoute>
+
+          <ProtectedRoute exact path='/confirm-submit' redirectTo='/login' loggedIn={loggedIn}>
+            <Confirm mainClass='app_page-confirm' noConfirmation={handleBackClick}>
+              <Header
+                noScroll={noScroll}
+                scroll={scroll}
+                isLoggedIn={true}
+                buttons={[buttons[0]]}
+                theme={true}
+                handleLogout={handleLogout}
+              />
+            </Confirm>
+          </ProtectedRoute>
+
         </Switch>
         <RightClickMenu items={rightClickItems} isLoggedIn={loggedIn} />
-        <Footer homeClick={handleHomeClick} />
+        <Footer homeClick={handleBackClick} />
       </CurrentDataContext.Provider>
     </CurrentUserContext.Provider>
   );

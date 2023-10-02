@@ -177,11 +177,11 @@ export function ButtonSVG({ buttonText, onClick, title = buttonText, children = 
     );
 };
 
-export function ButtonSubmit() {
+export function ButtonSubmit({ onClick, bgColor = "#ABCDEF", color = '#5b5b5b', title = 'Submit' }) {
     return (
-        <button className="button-submit" type="submit">
+        <button className="button-submit" onClick={onClick} type="submit" style={{ "--bg-color": bgColor, "--text-color": color }}>
             <span className="button-submit__span">
-                Submit
+                {title}
                 <SvgSend />
             </span>
             <span className="button-submit__span">
@@ -189,7 +189,7 @@ export function ButtonSubmit() {
             </span>
             <span className="button-submit__span">
                 Done
-                <SvgDoubleCheck color='white' />
+                <SvgDoubleCheck color={color} />
             </span>
         </button >
     );

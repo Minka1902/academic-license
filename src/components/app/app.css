@@ -4,7 +4,9 @@
 
 .app {
     padding-bottom: 80px;
-    /* overflow-y: auto; */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .section__title {
@@ -28,6 +30,7 @@
 }
 
 section {
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -1675,11 +1675,14 @@
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 
 .button-submit {
+    --bg-color: #488aec;
+    --text-color: #000;
     position: relative;
     outline: 0;
+    max-width: 150px;
     border: 1px solid transparent;
-    background-color: #488aec;
-    color: #ffffff;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     font-size: 0.75rem;
     line-height: 1rem;
     font-weight: 700;
@@ -1694,6 +1697,7 @@
     vertical-align: middle;
     overflow: hidden;
     box-shadow: 0 4px 6px -1px #488aec31, 0 2px 4px -1px #488aec17;
+    margin: 10px;
 }
 
 .button-submit .button-submit__span {
@@ -1715,15 +1719,15 @@
 .button-submit .button-submit__span:nth-child(3) {
     position: absolute;
     top: 40px;
-    color: #fff;
+    color: var(--text-color);
 }
 
 .button-submit .button-submit__span:nth-child(2) {
-    background-color: #488aec;
+    background-color: var(--bg-color);
 }
 
 .button-submit .button-submit__span:nth-child(3) {
-    background-color: #488aec;
+    background-color: var(--bg-color);
 }
 
 .button-submit:hover {

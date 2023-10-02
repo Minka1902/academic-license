@@ -1,6 +1,6 @@
 import { PUBLIC_URL } from "./auth";
 
-class usersApi {
+class studentsApi {
   constructor(props) {
     this._authToken = props.auth;
     this._rootUrl = props.rootUrl;
@@ -25,5 +25,5 @@ class usersApi {
 // ! DEBUG API
 // const usersApiOBJ = new usersApi({ auth: '4den6CaDRe58L5Jx85R7E38xpVcn8TZcyqznqZVpKFAjeqqG80eZQc1WCtRNM1Aq', rootUrl: 'http://localhost:3001' });
 // ! REAL API
-const usersApiOBJ = new usersApi({ auth: '4den6CaDRe58L5Jx85R7E38xpVcn8TZcyqznqZVpKFAjeqqG80eZQc1WCtRNM1Aq', rootUrl: PUBLIC_URL });
+const usersApiOBJ = new studentsApi({ auth: '4den6CaDRe58L5Jx85R7E38xpVcn8TZcyqznqZVpKFAjeqqG80eZQc1WCtRNM1Aq', rootUrl: PUBLIC_URL });
 export default usersApiOBJ;
