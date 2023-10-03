@@ -9,6 +9,7 @@ import Main from '../main/Main';
 import Header from '../header/Header';
 import RightClickMenu from '../rightClickMenu/RightClickMenu';
 import LoginPopup from '../popup/LoginPopup';
+import GetKeyPopup from '../popup/GetKeyPopup';
 import Confirm from '../confirm/Confirm';
 import Footer from '../footer/Footer';
 
@@ -99,16 +100,8 @@ function App() {
   };
 
   // ???????????????????????????????????????????????????
-  // !!!!!!!!!!!!!     POPUP handling     !!!!!!!!!!!!!!
-  // ???????????????????????????????????????????????????
-  const closeAllPopups = () => {
-    // setIsLoginPopupOpen(false);
-  };
-
-  // ???????????????????????????????????????????????????
   // !!!!!!!!!!!!!     ROUTE handling     !!!!!!!!!!!!!!
   // ???????????????????????????????????????????????????
-
   const handleBackClick = () => {
     history.push('/upload-file');
     setData(undefined);
@@ -116,6 +109,10 @@ function App() {
 
   const handleSubmitClick = () => {
     history.push('/confirm-submit');
+  };
+
+  const handleGetKeyClick = () => {
+    history.push('/get-my-key');
   };
 
   const buttons = [
@@ -139,32 +136,6 @@ function App() {
   ];
 
   // ???????????????????????????????????????????????????
-  // !!!!!!!!!!!!!     EVENT handling     !!!!!!!!!!!!!!
-  // ???????????????????????????????????????????????????
-  React.useEffect(() => { // * close popup when clicked ESCAPE
-    const closeByEscape = (evt) => {
-      if (evt.key === 'Escape') {
-        closeAllPopups();
-      }
-    };
-
-    document.addEventListener('keydown', closeByEscape);
-    return () => document.removeEventListener('keydown', closeByEscape);
-    // eslint-disable-next-line
-  }, []);
-
-  React.useEffect(() => { // * close popup when clicked outside of it
-    const closeByClick = (evt) => {
-      if (evt.target.classList.contains("popup")) {
-        closeAllPopups();
-      }
-    }
-
-    document.addEventListener('mouseup', closeByClick);
-    return () => document.removeEventListener('mouseup', closeByClick);
-  });
-
-  // ???????????????????????????????????????????????????
   // !!!!!!!!!!!!!     INIT handling     !!!!!!!!!!!!!!!
   // ???????????????????????????????????????????????????
   React.useEffect(() => { // * close popup when clicked outside of it
@@ -173,22 +144,29 @@ function App() {
   }, []);                 // eslint-disable-line
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={currentUser} >
       <CurrentDataContext.Provider value={{ data, setData }}>
         <Switch>
           <Route path='/login'>
             <h1 className='section__title'>Welcome, Please Sign in to use this service</h1>
             <LoginPopup
               handleLogin={handleLoginSubmit}
-              isOpen={!loggedIn}
+              isOpen={true}
               isFound={isUserFound}
-              linkText='Add source'
-              onClose={closeAllPopups}
+              linkText='Get your academic access key'
+              handleSwitchPopup={handleGetKeyClick}
               onSignOut={handleLogout}
             />
           </Route>
 
-          <ProtectedRoute exact path='/upload-file' redirectTo='/login' loggedIn={loggedIn}>
+          <Route exact path='/get-my-key'>
+            <h1 className='section__title'>Welcome, Please enter your email</h1>
+            <GetKeyPopup
+              handleSwitchPopup={handleBackClick}
+            />
+          </Route>
+
+          <ProtectedRoute path='/upload-file' redirectTo='/login' loggedIn={loggedIn}>
             <Main mainClass='app'>
               <Header
                 noScroll={noScroll}
@@ -199,9 +177,10 @@ function App() {
                 handleLogout={handleLogout}
               />
             </Main>
+            <Footer homeClick={handleBackClick} />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/confirm-submit' redirectTo='/login' loggedIn={loggedIn}>
+          <ProtectedRoute path='/confirm-submit' redirectTo='/login' loggedIn={loggedIn}>
             <Confirm mainClass='app_page-confirm' noConfirmation={handleBackClick}>
               <Header
                 noScroll={noScroll}
@@ -212,11 +191,10 @@ function App() {
                 handleLogout={handleLogout}
               />
             </Confirm>
+            <Footer homeClick={handleBackClick} />
           </ProtectedRoute>
-
         </Switch>
         <RightClickMenu items={rightClickItems} isLoggedIn={loggedIn} />
-        <Footer homeClick={handleBackClick} />
       </CurrentDataContext.Provider>
     </CurrentUserContext.Provider>
   );

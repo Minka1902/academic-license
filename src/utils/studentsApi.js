@@ -21,6 +21,8 @@ class studentsApi {
   _handleResponse = (res) => (res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
 
   createStudent = ({ email, name, key }) => this._fetch({ method: "POST", url: "/add-student", data: { email, name, key } })
+
+  getStudent = ({ email }) => this._fetch({ method: "GET", url: `/get-student/${email}` })
 }
 // ! DEBUG API
 // const usersApiOBJ = new usersApi({ auth: '4den6CaDRe58L5Jx85R7E38xpVcn8TZcyqznqZVpKFAjeqqG80eZQc1WCtRNM1Aq', rootUrl: 'http://localhost:3001' });
